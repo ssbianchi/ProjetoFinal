@@ -60,30 +60,76 @@ namespace ProjetoFinal.BLL
             }
 
         }
-        
-        private static void LoadClientePorData()
-        {
-            throw new NotImplementedException();
-        }
-
-        private static void LoadClientePorCliente()
-        {
-            throw new NotImplementedException();
-        }
-
-        private static void LoadTodosPedidos()
-        {
-            throw new NotImplementedException();
-        }
-
         private static void ExcluirPedido()
         {
             throw new NotImplementedException();
         }
-
         private static void EditarPedido()
         {
             throw new NotImplementedException();
+        }
+        public static void LoadTodosPedidos()
+        {
+            var pedidoDetalhamento = PedidoDAL.GetTodosPedidos();
+
+            WriteLine("{0,-20} {1,-20} {2,10} ", "Cliente", "DataPedido", "TipoPagamento");
+            foreach (var pedido in pedidoDetalhamento)
+            {
+                WriteLine("{0, -20} {1,-20} {2,10} ", pedido.Cliente.Nome, pedido.DataPedido, pedido.TipoPagamento.Nome);
+                WriteLine("----------------------------------------------------------");
+                WriteLine("{0,-20} {1,-20} {2,10} {3,14} {4,14}", "Produto", "Qtd", "Preço Unitário", "Desconto", "Preço Total");
+
+                foreach (var item in pedido.PedidoDetalhamentos)
+                    WriteLine("{0, -20} {1,-20} {2,10} {3,14} {4,14}", item.Produto.Nome, item.QtdProduto, item.Produto.PrecoUnitario.Value.ToString("C"), item.Desconto, item.PrecoTotal.ToString("C"));
+
+
+                WriteLine("----------------------------------------------------------");
+                WriteLine();
+            }
+        }
+        public static void LoadClientePorData()
+        {
+            WriteLine($"Favor informar a DATA DO PEDIDO:");
+            var dataPedido = ReadLine();
+
+            var pedidoDetalhamento = PedidoDAL.GetPedidosPorData(DateTime.Parse(dataPedido));
+
+            WriteLine("{0,-20} {1,-20} {2,10} ", "Cliente", "DataPedido", "TipoPagamento");
+            foreach (var pedido in pedidoDetalhamento)
+            {
+                WriteLine("{0, -20} {1,-20} {2,10} ", pedido.Cliente.Nome, pedido.DataPedido, pedido.TipoPagamento.Nome);
+                WriteLine("----------------------------------------------------------");
+                WriteLine("{0,-20} {1,-20} {2,10} {3,14} {4,14}", "Produto", "Qtd", "Preço Unitário", "Desconto", "Preço Total");
+
+                foreach (var item in pedido.PedidoDetalhamentos)
+                    WriteLine("{0, -20} {1,-20} {2,10} {3,14} {4,14}", item.Produto.Nome, item.QtdProduto, item.Produto.PrecoUnitario.Value.ToString("C"), item.Desconto, item.PrecoTotal.ToString("C"));
+
+
+                WriteLine("----------------------------------------------------------");
+                WriteLine();
+            }
+        }
+        public static void LoadClientePorCliente()
+        {
+            WriteLine($"Favor informar o NOME DO CLIENTE:");
+            var nomeCliente = ReadLine();
+
+            var pedidoDetalhamento = PedidoDAL.GetPedidosPorNomeCliente(nomeCliente);
+
+            WriteLine("{0,-20} {1,-20} {2,10} ", "Cliente", "DataPedido", "TipoPagamento");
+            foreach (var pedido in pedidoDetalhamento)
+            {
+                WriteLine("{0, -20} {1,-20} {2,10} ", pedido.Cliente.Nome, pedido.DataPedido, pedido.TipoPagamento.Nome);
+                WriteLine("----------------------------------------------------------");
+                WriteLine("{0,-20} {1,-20} {2,10} {3,14} {4,14}", "Produto", "Qtd", "Preço Unitário", "Desconto", "Preço Total");
+
+                foreach (var item in pedido.PedidoDetalhamentos)
+                    WriteLine("{0, -20} {1,-20} {2,10} {3,14} {4,14}", item.Produto.Nome, item.QtdProduto, item.Produto.PrecoUnitario.Value.ToString("C"), item.Desconto, item.PrecoTotal.ToString("C"));
+
+
+                WriteLine("----------------------------------------------------------");
+                WriteLine();
+            }
         }
     }
 }

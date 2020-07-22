@@ -37,13 +37,13 @@ namespace ProjetoFinal.UI
                         //ExcluirPedido();
                         break;
                     case "4":
-                        //ListarTodosPedidos();
+                        PedidoBLL.LoadTodosPedidos();
                         break;
                     case "5":
-                        //ListarClientePorCliente();
+                        PedidoBLL.LoadClientePorCliente();
                         break;
                     case "6":
-                        //ListarClientePorData();
+                        PedidoBLL.LoadClientePorData();
                         break;
                     default:
                         WriteLine("Opção não encontrada!");

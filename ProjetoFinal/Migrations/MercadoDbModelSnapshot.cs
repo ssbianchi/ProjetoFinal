@@ -19,7 +19,7 @@ namespace ProjetoFinal.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("ProjetoFinal.Models.Cliente", b =>
+            modelBuilder.Entity("ProjetoFinal.DTO.Cliente", b =>
                 {
                     b.Property<int>("ClienteId")
                         .ValueGeneratedOnAdd()
@@ -44,7 +44,7 @@ namespace ProjetoFinal.Migrations
                     b.ToTable("Clientes");
                 });
 
-            modelBuilder.Entity("ProjetoFinal.Models.ClienteEndereco", b =>
+            modelBuilder.Entity("ProjetoFinal.DTO.ClienteEndereco", b =>
                 {
                     b.Property<int>("ClienteEnderecoId")
                         .ValueGeneratedOnAdd()
@@ -93,7 +93,7 @@ namespace ProjetoFinal.Migrations
                     b.ToTable("ClienteEnderecos");
                 });
 
-            modelBuilder.Entity("ProjetoFinal.Models.Pedido", b =>
+            modelBuilder.Entity("ProjetoFinal.DTO.Pedido", b =>
                 {
                     b.Property<int>("PedidoId")
                         .ValueGeneratedOnAdd()
@@ -118,7 +118,7 @@ namespace ProjetoFinal.Migrations
                     b.ToTable("Pedidos");
                 });
 
-            modelBuilder.Entity("ProjetoFinal.Models.PedidoDetalhamento", b =>
+            modelBuilder.Entity("ProjetoFinal.DTO.PedidoDetalhamento", b =>
                 {
                     b.Property<int>("PedidoId")
                         .HasColumnType("int");
@@ -142,7 +142,7 @@ namespace ProjetoFinal.Migrations
                     b.ToTable("PedidoDetalhamentos");
                 });
 
-            modelBuilder.Entity("ProjetoFinal.Models.Produto", b =>
+            modelBuilder.Entity("ProjetoFinal.DTO.Produto", b =>
                 {
                     b.Property<int>("ProdutoId")
                         .ValueGeneratedOnAdd()
@@ -168,7 +168,7 @@ namespace ProjetoFinal.Migrations
                     b.ToTable("Produtos");
                 });
 
-            modelBuilder.Entity("ProjetoFinal.Models.TipoPagamento", b =>
+            modelBuilder.Entity("ProjetoFinal.DTO.TipoPagamento", b =>
                 {
                     b.Property<int>("TipoPagamentoId")
                         .ValueGeneratedOnAdd()
@@ -184,39 +184,39 @@ namespace ProjetoFinal.Migrations
                     b.ToTable("TipoPagamentos");
                 });
 
-            modelBuilder.Entity("ProjetoFinal.Models.ClienteEndereco", b =>
+            modelBuilder.Entity("ProjetoFinal.DTO.ClienteEndereco", b =>
                 {
-                    b.HasOne("ProjetoFinal.Models.Cliente", "Cliente")
+                    b.HasOne("ProjetoFinal.DTO.Cliente", "Cliente")
                         .WithMany("ClienteEnderecos")
                         .HasForeignKey("ClienteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ProjetoFinal.Models.Pedido", b =>
+            modelBuilder.Entity("ProjetoFinal.DTO.Pedido", b =>
                 {
-                    b.HasOne("ProjetoFinal.Models.Cliente", "Cliente")
+                    b.HasOne("ProjetoFinal.DTO.Cliente", "Cliente")
                         .WithMany("Pedidos")
                         .HasForeignKey("ClienteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ProjetoFinal.Models.TipoPagamento", "TipoPagamento")
+                    b.HasOne("ProjetoFinal.DTO.TipoPagamento", "TipoPagamento")
                         .WithMany("Pedidos")
                         .HasForeignKey("TipoPagamentoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ProjetoFinal.Models.PedidoDetalhamento", b =>
+            modelBuilder.Entity("ProjetoFinal.DTO.PedidoDetalhamento", b =>
                 {
-                    b.HasOne("ProjetoFinal.Models.Pedido", "Pedido")
+                    b.HasOne("ProjetoFinal.DTO.Pedido", "Pedido")
                         .WithMany("PedidoDetalhamentos")
                         .HasForeignKey("PedidoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ProjetoFinal.Models.Produto", "Produto")
+                    b.HasOne("ProjetoFinal.DTO.Produto", "Produto")
                         .WithMany("PedidoDetalhamentos")
                         .HasForeignKey("ProdutoId")
                         .OnDelete(DeleteBehavior.Cascade)
