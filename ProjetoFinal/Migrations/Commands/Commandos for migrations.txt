@@ -1,0 +1,4 @@
+Commandos for migrations
+Add-Migration Inicial
+Remove-Migration Inicial
+Update-Database Inicial -Verbose
