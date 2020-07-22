@@ -18,7 +18,9 @@ namespace ProjetoFinal.UI
                 WriteLine("2 - Produto");
                 WriteLine("3 - Pedido");
                 WriteLine("0 - Sair");
+                WriteLine();
 
+                Write("Opção: ");
                 switch (ReadLine())
                 {
                     case "0":
