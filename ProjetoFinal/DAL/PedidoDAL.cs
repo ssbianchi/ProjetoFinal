@@ -27,6 +27,21 @@ namespace ProjetoFinal.DAL
             }
         }
 
+        public static void DeletePedido(Pedido pedido)
+        {
+            try
+            {
+                using var db = new MercadoDb();
+
+                db.Remove<Pedido>(pedido);
+                db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public static List<Pedido> GetTodosPedidos()
         {
             using var db = new MercadoDb();
@@ -37,6 +52,21 @@ namespace ProjetoFinal.DAL
                              .Include(a => a.Cliente)
                              .OrderBy(a => a.DataPedido)
                              .ToList();
+        }
+
+        public static Pedido GetPedidoComId(int id)
+        {
+            try
+            {
+                using var db = new MercadoDb();
+
+                return db.Pedidos.FirstOrDefault(a => a.PedidoId == id);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
         }
 
         public static List<Pedido> GetPedidosPorData(DateTime dateTime)
@@ -64,5 +94,7 @@ namespace ProjetoFinal.DAL
                              .Where(a => a.Cliente.Nome.Contains(nomeCliente))
                              .ToList();
         }
+
+        
     }
 }

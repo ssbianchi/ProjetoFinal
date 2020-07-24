@@ -34,7 +34,7 @@ namespace ProjetoFinal.UI
                         //EditarPedido();
                         break;
                     case "3":
-                        //ExcluirPedido();
+                        PedidoBLL.ExcluirPedido();
                         break;
                     case "4":
                         PedidoBLL.LoadTodosPedidos();

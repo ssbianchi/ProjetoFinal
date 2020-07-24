@@ -60,11 +60,54 @@ namespace ProjetoFinal.BLL
             }
 
         }
-        private static void ExcluirPedido()
+        public static void ExcluirPedido()
         {
-            throw new NotImplementedException();
+            try
+            {
+                var pedido = new Pedido();
+                LoadClientePorCliente();
+                var check = false;
+                do
+                {
+                    WriteLine("Favor informar o Id do Pedido:");
+                    var resposta = ReadLine();
+                    if (Helpers.Helpers.IsNumeric(resposta.ToString()))
+                    {
+                        pedido = PedidoDAL.GetPedidoComId(int.Parse(resposta.ToString()));
+                        if (pedido != null)
+                            check = true;
+                    }
+                } while (!check);
+
+                ConsoleKeyInfo respostaSN;
+                check = false;
+                do
+                {
+                    WriteLine($"Deseja excluir pedido do cliente {pedido.Cliente.Nome}? (S/N)");
+                    respostaSN = ReadKey(true);
+                    check = !((respostaSN.Key == ConsoleKey.S) || (respostaSN.Key == ConsoleKey.N));
+                } while (check);
+                switch (respostaSN.Key)
+                {
+                    case ConsoleKey.S:
+                        WriteLine("Sim");
+                        PedidoDAL.DeletePedido(pedido);
+                        break;
+                    case ConsoleKey.N:
+                        WriteLine("Não");
+                        break;
+                }
+
+                WriteLine($"PEDIDO DO CLIENTE {pedido.Cliente.Nome} DELETADO COM SUCESSO!");
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
-        private static void EditarPedido()
+        public static void EditarPedido()
         {
             throw new NotImplementedException();
         }
@@ -72,10 +115,10 @@ namespace ProjetoFinal.BLL
         {
             var pedidoDetalhamento = PedidoDAL.GetTodosPedidos();
 
-            WriteLine("{0,-20} {1,-20} {2,10} ", "Cliente", "DataPedido", "TipoPagamento");
+            WriteLine("{0, -3} {1,-20} {2,-20} {3,10} ", "Id", "Cliente", "DataPedido", "TipoPagamento");
             foreach (var pedido in pedidoDetalhamento)
             {
-                WriteLine("{0, -20} {1,-20} {2,10} ", pedido.Cliente.Nome, pedido.DataPedido, pedido.TipoPagamento.Nome);
+                WriteLine("{0:000} {1, -20} {2,-20} {3,10} ", pedido.PedidoId, pedido.Cliente.Nome, pedido.DataPedido, pedido.TipoPagamento.Nome);
                 WriteLine("----------------------------------------------------------");
                 WriteLine("{0,-20} {1,-20} {2,10} {3,14} {4,14}", "Produto", "Qtd", "Preço Unitário", "Desconto", "Preço Total");
 
@@ -94,10 +137,10 @@ namespace ProjetoFinal.BLL
 
             var pedidoDetalhamento = PedidoDAL.GetPedidosPorData(DateTime.Parse(dataPedido));
 
-            WriteLine("{0,-20} {1,-20} {2,10} ", "Cliente", "DataPedido", "TipoPagamento");
+            WriteLine("{0, -3} {1,-20} {2,-20} {3,10} ", "Id", "Cliente", "DataPedido", "TipoPagamento");
             foreach (var pedido in pedidoDetalhamento)
             {
-                WriteLine("{0, -20} {1,-20} {2,10} ", pedido.Cliente.Nome, pedido.DataPedido, pedido.TipoPagamento.Nome);
+                WriteLine("{0:000} {1, -20} {2,-20} {3,10} ", pedido.PedidoId, pedido.Cliente.Nome, pedido.DataPedido, pedido.TipoPagamento.Nome);
                 WriteLine("----------------------------------------------------------");
                 WriteLine("{0,-20} {1,-20} {2,10} {3,14} {4,14}", "Produto", "Qtd", "Preço Unitário", "Desconto", "Preço Total");
 
@@ -116,10 +159,10 @@ namespace ProjetoFinal.BLL
 
             var pedidoDetalhamento = PedidoDAL.GetPedidosPorNomeCliente(nomeCliente);
 
-            WriteLine("{0,-20} {1,-20} {2,10} ", "Cliente", "DataPedido", "TipoPagamento");
+            WriteLine("{0, -3} {1,-20} {2,-20} {3,10} ", "Id", "Cliente", "DataPedido", "TipoPagamento");
             foreach (var pedido in pedidoDetalhamento)
             {
-                WriteLine("{0, -20} {1,-20} {2,10} ", pedido.Cliente.Nome, pedido.DataPedido, pedido.TipoPagamento.Nome);
+                WriteLine("{0:000} {1, -20} {2,-20} {3,10} ", pedido.PedidoId, pedido.Cliente.Nome, pedido.DataPedido, pedido.TipoPagamento.Nome);
                 WriteLine("----------------------------------------------------------");
                 WriteLine("{0,-20} {1,-20} {2,10} {3,14} {4,14}", "Produto", "Qtd", "Preço Unitário", "Desconto", "Preço Total");
 
